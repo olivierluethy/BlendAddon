@@ -25,6 +25,13 @@ class MyAddon(bpy.types.Panel):
         layout = self.layout
         layout.label(text="Hello, World!")
 
+        for obj in selected_objects:
+            layout.label(text="Object Type: " + obj.type)
+            layout.label(text="Object Face: " + obj.data.faces)
+            # Check if the object has mesh data
+            if obj.type == 'MESH':
+                layout.label(text="Polygon Info: " + obj.data.polygons)
+
 # Register the addon
 def register():
     bpy.utils.register_class(MyAddon)
@@ -34,12 +41,4 @@ def unregister():
     bpy.utils.unregister_class(MyAddon)
 
 if __name__ == "__main__":
-    # Print the type of each selected object
-    for obj in selected_objects:
-        print("Object Type: " + obj.type)
-        print("Object Face: " + obj.data.faces)
-        # Check if the object has mesh data
-        if obj.type == 'MESH':
-            print("Polygon Info: " + obj.data.polygons)
-
     register()
