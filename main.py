@@ -14,31 +14,26 @@ bl_info = {
     "category": "Misc"
 }
 
-# Define the addon's functionality
-class MyAddon(bpy.types.Panel):
-    bl_label = "VirtualPainter"
-    bl_idname = "VIEW3D_PT_my_addon"
+class ObjectInfoPanel(bpy.types.Panel):
+    bl_idname = "Virtual Painter"
+    bl_label = "Object Info"
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
 
     def draw(self, context):
         layout = self.layout
-        layout.label(text="Hello, World!")
-
-        for obj in selected_objects:
+        obj = context.object
+        if obj:
             layout.label(text="Object Type: " + obj.type)
-            layout.label(text="Object Face: " + obj.data.faces)
-            # Check if the object has mesh data
             if obj.type == 'MESH':
-                layout.label(text="Polygon Info: " + obj.data.polygons)
+                layout.label(text="Object Face: " + str(len(obj.data.polygons)))
+                layout.label(text="Polygon Info: " + str(obj.data.polygons))
 
-# Register the addon
 def register():
-    bpy.utils.register_class(MyAddon)
+    bpy.utils.register_class(ObjectInfoPanel)
 
-# Unregister the addon
 def unregister():
-    bpy.utils.unregister_class(MyAddon)
+    bpy.utils.unregister_class(ObjectInfoPanel)
 
 if __name__ == "__main__":
     register()

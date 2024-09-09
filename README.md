@@ -1,1 +1,1 @@
-# BlendAddon
+# Virtual Painter
